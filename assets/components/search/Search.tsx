@@ -13,7 +13,7 @@ function Search(props) {
     textInputRef.current.focus();
   };
 
-  const handleSearch = (searchValue) =>{
+  const handleSearch = searchValue => {
     setSearch(searchValue);
     props.onSearch(searchValue);
   };
@@ -26,6 +26,7 @@ function Search(props) {
         size={scaleFontSize(22)}
       />
       <TextInput
+        placeholder={props.placeholder}
         ref={textInputRef}
         style={style.searchInput}
         value={search}
@@ -37,10 +38,12 @@ function Search(props) {
 
 Search.default = {
   onSearch: () => {},
+  placeholder: 'Search',
 };
 
 Search.propTypes = {
-  onSearch: PropTypes.func.isRequired,
+  onSearch: PropTypes.func,
+  placeholder: PropTypes.string,
 };
 
 export default Search;

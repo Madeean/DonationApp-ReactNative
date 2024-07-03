@@ -6,18 +6,22 @@
  */
 
 import React from 'react';
-import { StyleSheet} from 'react-native';
 import MainNavigation from './navigation/MainNavigation.tsx';
 import {NavigationContainer} from '@react-navigation/native';
+import {Provider} from 'react-redux';
+import store, {persistor} from './redux/Store.ts';
+import {PersistGate} from 'redux-persist/integration/react';
 
 function App(): React.JSX.Element {
   return (
-    <NavigationContainer>
-      <MainNavigation />
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
+        <NavigationContainer>
+          <MainNavigation />
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({});
 
 export default App;

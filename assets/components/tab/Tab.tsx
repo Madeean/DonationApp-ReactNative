@@ -1,7 +1,7 @@
 import {Pressable, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import style from './style.ts';
-import {useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {horizontalScale} from '../../styles/scalling.ts';
 
 function Tab(props) {
@@ -14,9 +14,8 @@ function Tab(props) {
 
   return (
     <Pressable
-      disabled={props.isInactive}
       style={[style.tab, props.isInactive && style.inactiveTab, tabWidth]}
-      onPress={() => props.onPress()}>
+      onPress={() => props.onPress(props.tabId)}>
       <Text
         onTextLayout={event => {
           setWidth(event.nativeEvent.lines[0].width);
@@ -35,6 +34,7 @@ Tab.default = {
 };
 
 Tab.propTypes = {
+  tabId: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   isInactive: PropTypes.bool,
   onPress: PropTypes.func,
