@@ -15,10 +15,12 @@ import style from './Style.ts';
 import ScrollView = Animated.ScrollView;
 import Search from '../../assets/components/search/Search.tsx';
 import Tab from '../../assets/components/tab/Tab.tsx';
-import {updateSelectedCategoryId} from '../../redux/reducers/Categories.ts';
+import {updateSelectedCategoryId } from "../../redux/reducers/Categories.ts";
 import SingleDonationItem from '../../assets/components/singleDonationItem/SingleDonationItem.tsx';
 import {updateSelectedDonationId} from '../../redux/reducers/Donations.ts';
 import {Routes} from '../../navigation/Routes.ts';
+import { logout } from "../../api/User.ts";
+import { resetToInitialState } from '../../redux/reducers/User.ts';
 
 function Home({navigation}) {
   const user = useSelector(state => state.user);
@@ -66,21 +68,31 @@ function Home({navigation}) {
               <Header title={user.displayName} />
             </View>
           </View>
-          <Image
-            source={{uri: user.profileImage}}
-            style={style.profileImage}
-            resizeMode={'contain'}
-          />
+          <View>
+              <Image
+                source={{uri: user.profileImage}}
+                style={style.profileImage}
+                resizeMode={'contain'}
+              />
+              <Pressable onPress={async () =>{
+                dispatch(resetToInitialState())
+                await logout()
+              }}>
+                <Header types={3} title={"Logout"} color={'#156cf7'} />
+              </Pressable>
+          </View>
         </View>
         <View style={style.searchBox}>
           <Search onSearch={() => {}} placeholder={'Search'} />
         </View>
         <Pressable style={style.highlightedImageContainer}>
-          <Image
-            style={style.highlightedImage}
-            source={require('../../assets/images/img_home.png')}
-            resizeMode={'contain'}
-          />
+          <View>
+            <Image
+              style={style.highlightedImage}
+              source={require('../../assets/images/img_home.png')}
+              resizeMode={'contain'}
+            />
+          </View>
         </Pressable>
         <View style={style.categoryHeader}>
           <Header title={'Select Category'} types={2} />
