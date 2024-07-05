@@ -63,7 +63,7 @@ function Home({navigation}) {
           <View>
             <Text style={style.headerIntroText}>Hello, </Text>
             <View style={style.username}>
-              <Header title={user.firstName + ' ' + user.lastName} />
+              <Header title={user.displayName} />
             </View>
           </View>
           <Image
